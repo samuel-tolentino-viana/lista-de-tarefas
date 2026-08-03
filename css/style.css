@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+:root{
+
+    /* CORES DE FUNDO */
+
+    --cor-fundo: #F4F6F8;
+    --cor-tarefa: #F9FAFB;
+
+    /* BOTÃO ADICIONAR */
+
+    --botao-adicionar: #2563EB;
+    --botao-adicionar-hover: #1D4ED8;
+    --texto-botao-adicionar: #FFFFFF;
+
+    /* BOTÃO CONCLUIR */
+
+    --botao-concluir: #16A34A;
+    --botao-concluir-hover: #15803D;
+    --texto-botao-concluir: #FFFFFF;
+
+
+    /* BOTÃO REVERTER */
+
+   --botao-reverter: #C0841A;
+   --botao-reverter-hover: #A16207;
+   --texto-botao-reverter: #FFFFFF;
+
+    /* BOTÃO EXCLUIR */
+
+    --botao-excluir: #DC2626;
+    --botao-excluir-hover: #B91C1C;
+    --texto-botao-excluir: #FFFFFF;
+
+    /* INPUT */
+
+    --input-fundo: #FFFFFF;
+    --input-borda: #CBD5E1;
+    --input-focus: #2563EB;
+
+    /* BORDAS E SOMBRAS */
+
+    --borda: #E5E7EB;
+    --sombra-leve:
+        0 2px 8px rgba(0,0,0,.08);
+    --sombra-media:
+        0 8px 20px rgba(0,0,0,.12);
+
+    /* STATUS DAS TAREFAS */
+
+    --tarefa-concluida: #ECFDF5;
+
+   /* TIPOGRAFIA */
+
+    --fonte-titulo: "Poppins", sans-serif;
+    --fonte-texto: "Inter", sans-serif;
+
+    --peso-titulo: 700;
+    --peso-subtitulo: 600;
+    --peso-texto: 400;
+
+    /* TAMANHOS */
+
+    --titulo-principal: 2rem;
+    --subtitulo-principal: 1.2rem;
+    --texto-normal: 1rem;
+
+    /* BORDER RADIUS */
+
+    --radius-container: 18px;
+    --radius-input: 10px;
+    --radius-botao: 10px;
+}
+
+/* CONFIGURAÇÕES COMPLETAS */
+
+body, p, input, button, li {
+    font-family: var(--fonte-texto);
+}
+
+/* CORPO */
+
+body {
+   background-color: var(--cor-fundo);
+}
+
+/* HEADER */
+
+header {
+   margin: 16px;
+   text-align: justify;
+}
+
+header h1 {
+   margin-bottom: 24px;
+   font: normal var(--peso-titulo) var(--titulo-principal) var(--fonte-texto);
+}
+
+header p {
+   margin-bottom: 8px;
+   font: normal var(--peso-texto) var(--texto-normal) var(--fonte-texto);
+}
+
+/* MAIN */
+
+main h2 {
+   font-family: var(--fonte-titulo);
+   font-weight: var(--peso-subtitulo);
+   font-size: var(--subtitulo-principal);
+   margin: 16px;
+}
+
+.formulario {
+   text-align: center;
+   background-color: var(--cor-tarefa);
+   max-width: 400px;
+   width: 100%;
+   margin: 24px auto 0px;
+   box-shadow: var(--sombra-leve);
+   padding: 16px;
+   border-radius: var(--radius-input) var(--radius-input) 0px 0px;
+}
+
+.formulario .adicionar-tarefa {
+   padding: 4px;
+   background-color: var(--input-fundo);
+   border: 1px solid var(--input-borda);
+   border-radius: var(--radius-input);
+}
+.formulario .adicionar-tarefa:focus {
+   outline: none;
+   border: 1px solid var(--input-focus);
+}
+
+.formulario .botao-adicionartarf {
+   padding: 8px;
+   margin-top: 12px;
+   border-radius: var(--radius-botao);
+   outline: none;
+   color: var(--texto-botao-adicionar);
+   background-color: var(--botao-adicionar);
+   border: none;
+   box-shadow: var(--sombra-leve);
+   transition: background-color 0.2s, box-shadow 0.4s, transform 0.3s ease 0.2s; /* FIZ MAIS POR CONTA QUE APRENDI E QUERO TESTAR, MAS LÓGICO SEM ESTRAGAR O BOTÃO COM EXAGER */
+}
+
+.formulario .botao-adicionartarf:hover {
+   background-color: var(--botao-adicionar-hover);
+   box-shadow: var(--sombra-media);
+   transform: scale(1.05);
+}
+
+.tarefas {
+   max-width: 600px;
+   margin: auto;
+}
+
+ul {
+   padding: 0px 16px;
+}
+
+.cada-tarefa {
+   margin: 0px 16px 12px;
+   max-width: 550px;
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+   padding: 12px;
+   border: 1px solid var(--borda);
+   box-shadow: var(--sombra-leve);
+   border-radius: var(--radius-container);
+   list-style-type: none;
+   background-color: var(--cor-tarefa);
+   min-height: 70px;
+   cursor: pointer;
+   animation: nova-lista 0.6s ease-in-out forwards;
+}
+
+.cada-tarefa p {
+   overflow-wrap: anywhere;
+}
+
+.concluir, .reverter, .editar, .excluir {
+   border: 1px solid var(--borda);
+   padding: 6px 0px;
+   height: 30px;
+   animation: aparecer-botao 0.3s ease-in-out;
+   transition: 0.4s;
+}
+
+.concluir {
+   width: 110px;
+   border-radius: var(--radius-botao) 0px 0px var(--radius-botao);
+   background-color: var(--botao-concluir);
+   color: var(--texto-botao-concluir);
+}
+.concluir:hover {
+   background-color: var(--botao-concluir-hover);
+}
+
+.editar {
+   width: 110px;
+   background-color: var(--botao-editar);
+   color: var(--texto-botao-editar);
+}
+.editar:hover {
+   background-color: var(--botao-editar-hover);
+}
+
+.excluir {
+   width: 100px;
+   border-radius: 0px var(--radius-botao) var(--radius-botao) 0px;
+   background-color: var(--botao-excluir);
+   color: var(--texto-botao-excluir);
+}
+.excluir:hover {
+   background-color: var(--botao-excluir-hover);
+}
+
+.botoestaref {
+   display: none;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes aparecer-botao {
+   0% {
+      transform: translateY(-16px);
+      opacity: 0;
+   }
+}
+
+@keyframes nova-lista {
+   0% {
+      transform: translateX(-200px);
+   }
+   50% {
+      transform: translateX(30px);
+   }
+}
+
+/* CLASS USADAS NO JS */
+
+.tarefa-concluida {
+   background-color: var(--tarefa-concluida);
+   text-decoration: line-through;
+}
+
+.reverter {
+   width: 110px;
+   border-radius: var(--radius-botao) 0px 0px var(--radius-botao);
+   background-color: var(--botao-reverter);
+   color: var(--texto-botao-reverter);
+}
+.reverter:hover {
+   background-color: var(--botao-reverter-hover);
+}
