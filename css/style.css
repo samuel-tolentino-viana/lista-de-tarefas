@@ -8,80 +8,80 @@
 
 :root{
 
-    /* CORES DE FUNDO */
+   /* CORES DE FUNDO */
 
-    --cor-fundo: #F4F6F8;
-    --cor-tarefa: #F9FAFB;
+   --cor-fundo: #F4F6F8;
+   --cor-tarefa: #F9FAFB;
 
-    /* BOTÃO ADICIONAR */
+   /* BOTÃO ADICIONAR */
 
-    --botao-adicionar: #2563EB;
-    --botao-adicionar-hover: #1D4ED8;
-    --texto-botao-adicionar: #FFFFFF;
+   --botao-adicionar: #2563EB;
+   --botao-adicionar-hover: #1D4ED8;
+   --texto-botao-adicionar: #FFFFFF;
 
-    /* BOTÃO CONCLUIR */
+   /* BOTÃO CONCLUIR */
 
-    --botao-concluir: #16A34A;
-    --botao-concluir-hover: #15803D;
-    --texto-botao-concluir: #FFFFFF;
+   --botao-concluir: #16A34A;
+   --botao-concluir-hover: #15803D;
+   --texto-botao-concluir: #FFFFFF;
 
 
-    /* BOTÃO REVERTER */
+   /* BOTÃO REVERTER */
 
-   --botao-reverter: #C0841A;
-   --botao-reverter-hover: #A16207;
-   --texto-botao-reverter: #FFFFFF;
+--botao-reverter: #C0841A;
+--botao-reverter-hover: #A16207;
+--texto-botao-reverter: #FFFFFF;
 
-    /* BOTÃO EXCLUIR */
+   /* BOTÃO EXCLUIR */
 
-    --botao-excluir: #DC2626;
-    --botao-excluir-hover: #B91C1C;
-    --texto-botao-excluir: #FFFFFF;
+   --botao-excluir: #DC2626;
+   --botao-excluir-hover: #B91C1C;
+   --texto-botao-excluir: #FFFFFF;
 
-    /* INPUT */
+   /* INPUT */
 
-    --input-fundo: #FFFFFF;
-    --input-borda: #CBD5E1;
-    --input-focus: #2563EB;
+   --input-fundo: #FFFFFF;
+   --input-borda: #CBD5E1;
+   --input-focus: #2563EB;
 
-    /* BORDAS E SOMBRAS */
+   /* BORDAS E SOMBRAS */
 
-    --borda: #E5E7EB;
-    --sombra-leve:
-        0 2px 8px rgba(0,0,0,.08);
-    --sombra-media:
-        0 8px 20px rgba(0,0,0,.12);
+   --borda: #E5E7EB;
+   --sombra-leve:
+      0 2px 8px rgba(0,0,0,.08);
+   --sombra-media:
+      0 8px 20px rgba(0,0,0,.12);
 
-    /* STATUS DAS TAREFAS */
+   /* STATUS DAS TAREFAS */
 
-    --tarefa-concluida: #ECFDF5;
+   --tarefa-concluida: #ECFDF5;
 
-   /* TIPOGRAFIA */
+/* TIPOGRAFIA */
 
-    --fonte-titulo: "Poppins", sans-serif;
-    --fonte-texto: "Inter", sans-serif;
+   --fonte-titulo: "Poppins", sans-serif;
+   --fonte-texto: "Inter", sans-serif;
 
-    --peso-titulo: 700;
-    --peso-subtitulo: 600;
-    --peso-texto: 400;
+   --peso-titulo: 700;
+   --peso-subtitulo: 600;
+   --peso-texto: 400;
 
-    /* TAMANHOS */
+   /* TAMANHOS */
 
-    --titulo-principal: 2rem;
-    --subtitulo-principal: 1.2rem;
-    --texto-normal: 1rem;
+   --titulo-principal: 2rem;
+   --subtitulo-principal: 1.2rem;
+   --texto-normal: 1rem;
 
-    /* BORDER RADIUS */
+   /* BORDER RADIUS */
 
-    --radius-container: 18px;
-    --radius-input: 10px;
-    --radius-botao: 10px;
+   --radius-container: 18px;
+   --radius-input: 10px;
+   --radius-botao: 10px;
 }
 
 /* CONFIGURAÇÕES COMPLETAS */
 
 body, p, input, button, li {
-    font-family: var(--fonte-texto);
+   font-family: var(--fonte-texto);
 }
 
 /* CORPO */
@@ -107,20 +107,25 @@ header p {
    font: normal var(--peso-texto) var(--texto-normal) var(--fonte-texto);
 }
 
+header h1, header p {
+   text-align: center;
+}
+
 /* MAIN */
 
 main h2 {
    font-family: var(--fonte-titulo);
    font-weight: var(--peso-subtitulo);
    font-size: var(--subtitulo-principal);
-   margin: 16px;
+   margin: 24px;
+   text-align: center;
 }
 
 .formulario {
    text-align: center;
    background-color: var(--cor-tarefa);
    max-width: 400px;
-   width: 100%;
+   width: 70vw;
    margin: 24px auto 0px;
    box-shadow: var(--sombra-leve);
    padding: 16px;
