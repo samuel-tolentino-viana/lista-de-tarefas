@@ -132,6 +132,10 @@ main h2 {
    border-radius: var(--radius-input) var(--radius-input) 0px 0px;
 }
 
+.formulario textarea {
+   resize: vertical;
+}
+
 .formulario .adicionar-tarefa {
    padding: 4px;
    background-color: var(--input-fundo);
