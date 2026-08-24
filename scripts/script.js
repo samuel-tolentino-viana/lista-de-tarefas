@@ -37,6 +37,7 @@ function deletar(itemLista, textoLista) {
   itemLista.remove();
   let itemParaRemover = lista.indexOf(textoLista.textContent);
   lista.splice(itemParaRemover, 1);
+  
 };
 
 function removerTag() {
@@ -116,13 +117,16 @@ adicionarTarefa.addEventListener('click', () => {
        botoes.appendChild(excluir);
 
        ul.appendChild(novaTarefa); // ADICIONA ELA NA LISTA 
+
+       lista.push(tarefaDigitada); // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY
+
+       localStorage.setItem('tarefas', JSON.stringify(lista)); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
       
     }
     else {
       alert('[ERRO] A tarefa já está na lista!');
     };
 
-    lista.push(tarefaDigitada); // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY
 
     input.value = ''; // PEGA O CAMPO DE DIGITAÇÃO E, APÓS ENVIAR, CRIAR A LISTA, ORGANIZAR TUDO E OS BOTÕES, REMOVE OQUE ESTAVA DIGITADO NO CAMPO.
 
