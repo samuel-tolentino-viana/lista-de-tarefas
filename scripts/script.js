@@ -8,12 +8,19 @@ const tag = document.querySelector('.tag');
 // LISTA 
 
 let lista = [];
+
 // FUNÇÕES COMPLEMENTARES
 
-let listaAtualizada = JSON.parse(localStorage.getItem('tarefas'));
+if(localStorage.getItem('tarefas') !== null) {
+  lista = JSON.parse(localStorage.getItem('tarefas'));
+};
 
 function abrirBotoes(botoes) {
   botoes.classList.toggle('botoestaref');
+};
+
+for(let percorrerLista of lista) {
+  
 };
 
 // CONCLUIR
