@@ -123,7 +123,6 @@ adicionarTarefa.addEventListener('click', () => {
 
       lista.push(
         {
-
         texto: tarefaDigitada,
         concluida: false
       }
