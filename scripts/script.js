@@ -9,18 +9,61 @@ const tag = document.querySelector('.tag');
 
 let lista = [];
 
-// FUNÇÕES COMPLEMENTARES
-
 if(localStorage.getItem('tarefas') !== null) {
   lista = JSON.parse(localStorage.getItem('tarefas'));
 };
 
-function abrirBotoes(botoes) {
-  botoes.classList.toggle('botoestaref');
+for(let percorrerLista of lista) {
+  criarLista(percorrerLista);
 };
 
-for(let percorrerLista of lista) {
-  
+// FUNÇÕES COMPLEMENTARES
+
+function criarLista(tarefas) {
+  let trocar = false;
+
+  const novaTarefa = document.createElement('li');
+  novaTarefa.setAttribute('class', 'cada-tarefa');
+  const texto = document.createElement('p');
+  ul.appendChild(novaTarefa);
+  novaTarefa.appendChild(texto);
+  texto.innerText = tarefas.texto;
+
+  const botoes = document.createElement('div');
+  botoes.setAttribute('class', 'botoestaref');
+  novaTarefa.appendChild(botoes);
+
+  novaTarefa.addEventListener('click', () => {
+    abrirBotoes(botoes);
+  });
+
+  const concluir = document.createElement('button');
+  concluir.setAttribute('class', 'concluir');
+  botoes.appendChild(concluir);
+  concluir.innerText = 'Concluir';
+  concluir.addEventListener('click', () => {
+    if(!trocar) {
+      concluirTarefa(novaTarefa, concluir);
+    }
+    else {
+      reverter(novaTarefa, concluir);
+    };
+    trocar = !trocar;
+  });
+
+  const excluir = document.createElement('button');
+  excluir.setAttribute('class', 'excluir');
+  botoes.appendChild(excluir);
+  excluir.innerText = 'Excluir';
+
+  excluir.addEventListener('click', () => {
+    deletar(novaTarefa, texto)
+  });
+
+};
+
+function abrirBotoes(botoes) {
+  botoes.classList.toggle('botoestaref');
 };
 
 // CONCLUIR
@@ -45,7 +88,8 @@ function deletar(itemLista, textoLista) {
   itemLista.remove();
   let itemParaRemover = lista.indexOf(textoLista.textContent);
   lista.splice(itemParaRemover, 1);
-  
+
+  localStorage.setItem('tarefas', JSON.stringify( lista));
 };
 
 function removerTag() {
@@ -75,58 +119,16 @@ adicionarTarefa.addEventListener('click', () => {
 
     if(lista.indexOf(tarefaDigitada) == -1) { // VAI PESQUISAR SE O ITEM DIGITADO JÁ ESTÁ NA LISTA, SE NÃO ESTIVER
 
-      let novaTarefa = document.createElement('li'); // CRIA UMA NOVA LISTA
+      criarLista(lista.texto);
 
-      novaTarefa.setAttribute('class', 'cada-tarefa'); // DÁ UMA CLASS QEU FAZ ELA FICAR UM CARD
+      lista.push(
+        {
 
-      const textoTarefa = document.createElement('p');
-
-      novaTarefa.appendChild(textoTarefa);
-
-      textoTarefa.innerText = tarefaDigitada; // COLOCA O VALOR DIGITADO NO INPUT NA LISTA
-
-      // BOTÕES
-      
-      const botoes = document.createElement('div');
-      botoes.setAttribute('class', 'botoestaref');
-      novaTarefa.appendChild(botoes); // ADICIONA A DIV DOS BOTÕES DENTRO DA LI, COMO NA ESTRUTURA ORIGINAL
-
-      // BOTÕES CONCLUIR E EXCLUIR
-
-      novaTarefa.addEventListener('click', () => {
-        abrirBotoes(botoes);
-      });
-
-      let trocar = false;
-
-      const concluir = document.createElement('button');
-      concluir.setAttribute('class', 'concluir');
-      concluir.innerText = 'Concluir';
-      concluir.addEventListener('click', () => {
-        if(!trocar) {
-          concluirTarefa(novaTarefa, concluir);
-        }
-        else {
-          reverter(novaTarefa, concluir);
-        };
-        trocar = !trocar;
-      });
-
-      const excluir = document.createElement('button');
-      excluir.setAttribute('class', 'excluir');
-      excluir.innerText = 'Excluir';
-      excluir.addEventListener('click', () => {
-        deletar(novaTarefa, textoTarefa);
-      });
-
-      // ADICIONANDO OS BOTÕES DENTRO DA ÁREA DOS BOTÕES
-       
-       botoes.appendChild(concluir);
-       botoes.appendChild(excluir);
-
-       ul.appendChild(novaTarefa); // ADICIONA ELA NA LISTA 
-
-       lista.push(tarefaDigitada); // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY
+        texto: tarefaDigitada,
+        concluida: false
+      }
+    ); 
+    // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY, SÓ QUE AGORA COMO FORMA DE OBJETO PARA VERIFICAR SE É CONCLUIDO OU NÃO
 
        localStorage.setItem('tarefas', JSON.stringify(lista)); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
       
