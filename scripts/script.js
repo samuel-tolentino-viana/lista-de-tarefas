@@ -11,10 +11,10 @@ let lista = [];
 
 if(localStorage.getItem('tarefas') !== null) {
   lista = JSON.parse(localStorage.getItem('tarefas'));
-};
+}
 
-for(let percorrerLista of lista) {
-  criarLista(percorrerLista);
+for(let tarefa of lista) {
+  criarLista(tarefa);
 };
 
 // FUNÇÕES COMPLEMENTARES
@@ -43,10 +43,11 @@ function criarLista(tarefas) {
   concluir.innerText = 'Concluir';
   concluir.addEventListener('click', () => {
     if(!trocar) {
-      concluirTarefa(novaTarefa, concluir);
+      concluirTarefa(novaTarefa, concluir, tarefas);
     }
     else {
       reverter(novaTarefa, concluir);
+      trocarModo(tarefas);
     };
     trocar = !trocar;
   });
@@ -60,6 +61,11 @@ function criarLista(tarefas) {
     deletar(novaTarefa, texto)
   });
 
+  if(tarefas.concluida) {
+    novaTarefa.classList.add('tarefa-concluida');
+    reverter(novaTarefa, concluir);
+  }
+
 };
 
 function abrirBotoes(botoes) {
@@ -68,11 +74,15 @@ function abrirBotoes(botoes) {
 
 // CONCLUIR
 
-function concluirTarefa(novaTarefa, concluir) {
+function concluirTarefa(novaTarefa, concluir, tarefa) {
   novaTarefa.classList.add('tarefa-concluida');
   concluir.classList.add('reverter');
   concluir.classList.remove('concluir');
   concluir.innerText = 'Reverter';
+
+  tarefa.concluida = true;
+
+  localStorage.setItem('tarefas', JSON.stringify(lista));
 };
 
 function reverter(novaTarefa, concluir) {
@@ -80,7 +90,13 @@ function reverter(novaTarefa, concluir) {
   concluir.classList.add('concluir');
   concluir.classList.remove('reverter');
   concluir.innerText = 'Concluir';
+
 };
+function trocarModo(tarefa) {
+  tarefa.concluida = false;
+
+  localStorage.setItem('tarefas', JSON.stringify(lista));
+}
 
 // EXCLUIR
 
@@ -117,33 +133,37 @@ adicionarTarefa.addEventListener('click', () => {
 
     aviso.innerHTML = ''; // SE ALGO FOR DIGITADO, REMOVE O AVISO
 
-    if(lista.indexOf(tarefaDigitada) == -1) { // VAI PESQUISAR SE O ITEM DIGITADO JÁ ESTÁ NA LISTA, SE NÃO ESTIVER
+    let tarefaJaExiste = false;
 
-      criarLista(lista.texto);
-
-      lista.push(
-        {
-        texto: tarefaDigitada,
-        concluida: false
+    for(let tarefa of lista) {
+      if(tarefa.texto == tarefaDigitada) {
+        tarefaJaExiste = true;
       }
-    ); 
-    // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY, SÓ QUE AGORA COMO FORMA DE OBJETO PARA VERIFICAR SE É CONCLUIDO OU NÃO
-
-       localStorage.setItem('tarefas', JSON.stringify(lista)); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
-      
-    }
-    else {
-      alert('[ERRO] A tarefa já está na lista!');
     };
 
+    if(!tarefaJaExiste) {
+      const item = {
+        texto: tarefaDigitada,
+        concluida: false
+      };
 
+      lista.push(item); 
+      // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY, SÓ QUE AGORA COMO FORMA DE OBJETO PARA VERIFICAR SE É CONCLUIDO OU NÃO
+    
+      localStorage.setItem('tarefas', JSON.stringify(lista)); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
+
+      criarLista(item);
+    } else {
+        alert('A tarefa já existe!');
+      }
+    
     input.value = ''; // PEGA O CAMPO DE DIGITAÇÃO E, APÓS ENVIAR, CRIAR A LISTA, ORGANIZAR TUDO E OS BOTÕES, REMOVE OQUE ESTAVA DIGITADO NO CAMPO.
 
     input.focus();
 
     if(lista.length == 1) {
     tag.style.display = 'none';
-  };
+    };
 
   };
 });
