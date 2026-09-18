@@ -17,10 +17,12 @@ for(let tarefa of lista) {
   criarLista(tarefa);
 };
 
+verificarTag()
+
 // FUNÇÕES COMPLEMENTARES
 
 function criarLista(tarefas) {
-  let trocar = false;
+  let trocar = tarefas.concluida;
 
   const novaTarefa = document.createElement('li');
   novaTarefa.setAttribute('class', 'cada-tarefa');
@@ -44,8 +46,7 @@ function criarLista(tarefas) {
   concluir.addEventListener('click', () => {
     if(!trocar) {
       concluirTarefa(novaTarefa, concluir, tarefas);
-    }
-    else {
+    } else {
       reverter(novaTarefa, concluir);
       trocarModo(tarefas);
     };
@@ -63,13 +64,20 @@ function criarLista(tarefas) {
 
   if(tarefas.concluida) {
     novaTarefa.classList.add('tarefa-concluida');
-    reverter(novaTarefa, concluir);
+    concluir.classList.add('reverter');
+    concluir.classList.remove('concluir');
+    concluir.innerText = 'Reverter';
   }
 
 };
 
 function abrirBotoes(botoes) {
   botoes.classList.toggle('botoestaref');
+};
+
+function salvarLista() {
+  localStorage.setItem('tarefas', JSON.stringify(lista));
+  verificarTag();
 };
 
 // CONCLUIR
@@ -82,7 +90,7 @@ function concluirTarefa(novaTarefa, concluir, tarefa) {
 
   tarefa.concluida = true;
 
-  localStorage.setItem('tarefas', JSON.stringify(lista));
+  salvarLista();
 };
 
 function reverter(novaTarefa, concluir) {
@@ -95,21 +103,32 @@ function reverter(novaTarefa, concluir) {
 function trocarModo(tarefa) {
   tarefa.concluida = false;
 
-  localStorage.setItem('tarefas', JSON.stringify(lista));
+  salvarLista();
 }
 
 // EXCLUIR
 
 function deletar(itemLista, textoLista) {
-  itemLista.remove();
-  let itemParaRemover = lista.indexOf(textoLista.textContent);
-  lista.splice(itemParaRemover, 1);
+  itemLista.remove(); // REMOVE O CARD
 
-  localStorage.setItem('tarefas', JSON.stringify( lista));
+  let itemParaRemover; // VAR. DO ITEM QUE IREMOS TIRAR
+
+  for(let tarefa of lista) { // PERCORRE TODA A LISTA
+    if(tarefa.texto == textoLista.textContent) { // SE O O TEXTO DO OBJETO (ENTRA EM CADA TAREFA E VÊ O TEXTO) FOR IGUAL AO TEXTO DENTRO DO PARAGRAFO
+      itemParaRemover = lista.indexOf(tarefa); // GUARDA O ÍNDICE DO OBJETO NA VARIÁVEL PARA PODERMOS REMOVÊ-LO
+    }
+  };
+  lista.splice(itemParaRemover, 1); // REMOVE O OBJETO
+
+  salvarLista(); // SALVA
 };
 
-function removerTag() {
-  tag.style.display = 'none'; // RETIRA A TAG
+function verificarTag() {
+  if(lista.length != 0) {
+    tag.classList.add('desativar');
+  } else {
+    tag.classList.remove('desativar');
+  }
 };
 
 // FUNÇÃO AO CLICAR EM ADICIONAR
@@ -150,7 +169,7 @@ adicionarTarefa.addEventListener('click', () => {
       lista.push(item); 
       // ADICIONA O QUE FOI DIGITADO NO INPUT NA ARRAY, SÓ QUE AGORA COMO FORMA DE OBJETO PARA VERIFICAR SE É CONCLUIDO OU NÃO
     
-      localStorage.setItem('tarefas', JSON.stringify(lista)); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
+      salvarLista(); // ADICIONA NO LOCALSTORAGE A LISTA COM O ITEM ADICIONADO
 
       criarLista(item);
     } else {
@@ -161,14 +180,8 @@ adicionarTarefa.addEventListener('click', () => {
 
     input.focus();
 
-    if(lista.length == 1) {
-    tag.style.display = 'none';
-    };
-
   };
 });
-
-tag.addEventListener('click', removerTag);
 
 // ESTOU ESCREVENDO MUITOS COMENTÁRIOS PARA EU APRENDER A 'LER' OS SCRIPTS E CÓDIGOS
 

@@ -270,3 +270,7 @@ ul {
 .reverter:hover {
    background-color: var(--botao-reverter-hover);
 }
+
+.desativar {
+   display: none;
+}
