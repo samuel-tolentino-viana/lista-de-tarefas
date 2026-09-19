@@ -137,6 +137,8 @@ main h2 {
 }
 
 .formulario .adicionar-tarefa {
+   width: 86%;
+   max-width: 350px;
    padding: 4px;
    background-color: var(--input-fundo);
    border: 1px solid var(--input-borda);
